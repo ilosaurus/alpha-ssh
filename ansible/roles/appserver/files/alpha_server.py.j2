@@ -39,10 +39,10 @@ def db_execute(cnx,sql,select=False):
         sys.exit(1)
 
 def update_database(node_name,attempt_count):
-    db_user = {{ mysql_username  }}
-    db_password = {{ mysql_password  }}
+    db_user = '{{ mysql_username  }}'
+    db_password = '{{ mysql_password  }}'
     db_name = 'ssh_access_reports'
-    db_host = '127.0.0.1'
+    db_host = '{{ mysql_host  }}'
     db_table = 'report'
 
     print "Connecting to mysql."
@@ -74,7 +74,7 @@ def update_database(node_name,attempt_count):
     close_db_connection(connection)    
 
 def main():
-    HOST = {{ server_address  }}   
+    HOST = '{{ server_address  }}'   
     PORT = {{ server_port }}
  
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

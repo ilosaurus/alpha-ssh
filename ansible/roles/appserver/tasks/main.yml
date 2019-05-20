@@ -25,14 +25,16 @@
     - { src: 'roles/appserver/files/alpha_client.service', dest: '/etc/systemd/system/alpha_client.service' }
     - { src: 'roles/appserver/files/alpha_report.service', dest: '/etc/systemd/system/alpha_report.service' }
 
-- name: just force systemd to reread configs (2.4 and above)
+- name: systemd to reread configs
   systemd:
     daemon_reload: yes
 
-
-      #- name: copy script alpha_client.py to /opt/alpha
-      #  template:
-      #    src: roles/app/files/alpha_client.py.j2
-      #    dest: /opt/alpha/alpha_client.py
-      #    mode: '0644'
+- name: start service  
+  systemd:
+    name: "{{ item }}"
+    state: started
+    daemon_reload: yes
+  with_items:
+    - 'alpha_server'
+    - 'alpha_client'
 

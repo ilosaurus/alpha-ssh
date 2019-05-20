@@ -4,10 +4,10 @@ import sys
 import Server
 
 def main():
-    db_user = {{ mysql_username  }}
-    db_password = {{ mysql_password  }}
+    db_user = '{{ mysql_username  }}'
+    db_password = '{{ mysql_password  }}'
     db_name = 'ssh_access_reports'
-    db_host = {{ server_address  }}
+    db_host = '{{ server_address  }}'
     db_table = 'report'
 
 
