@@ -3,3 +3,14 @@
 
 [server]
 10.199.199.200 ansible_ssh_user=root ansible_port=22
+
+[aut]
+10.199.199.220 ansible_ssh_user=root ansible_port=22
+
+[aut:vars]
+server_address=10.199.199.200
+server_port=8888
+mysql_host=10.199.199.200
+mysql_username=root123
+mysql_password=rahasia
+
