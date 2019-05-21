@@ -6,9 +6,9 @@
 #    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
 - hosts: server
-
   roles:
-  - appserver
-#    - server
+#  - appserver
+   - server
+     #   - pythonlibrary
 #    - php
 #    - mysql

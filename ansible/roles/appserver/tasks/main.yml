@@ -1,5 +1,16 @@
 ---
 # tasks file for app
+- name: Install required software in server node
+  apt:
+    state: present
+    name: ['apache2', 'php7.2', 'php7.2-mysql', 'libapache2-mod-php7.2', 'mysql-server']
+
+- name: Install php extensions
+  apt: 
+    state: present
+    become: yes
+    name: ['php7.2-gd','php7.2-mysql']
+
 - name: Create script directory
   file:
     path: /opt/alpha
