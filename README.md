@@ -25,6 +25,8 @@ SSH Access reporting tool is written on python.   The deployment/configuration i
 if you using openstack as enviroment deployment. Automated deployment instance with terraform.
 ```bash
 cd terraform
+vim provider.tf
+vim variable.tf
 terraform init
 terraform validate
 terraform plan
