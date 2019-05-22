@@ -1,14 +1,28 @@
-#- hosts: all
-#  gather_facts: False
-#  
-#  tasks:
-#  - name: install python 2
-#    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+- hosts: all
+  become: yes
+  gather_facts: True
+  roles:
+    - initconfig
 
 - hosts: server
+  become: yes
   roles:
-#  - appserver
-   - server
-     #   - pythonlibrary
-#    - php
-#    - mysql
+    - appserver
+    - mysql
+
+- hosts: client
+  become: yes
+  roles:
+    - appclient
+
+- hosts: server
+  become: yes
+  roles:
+    - testingserver
+
+- hosts: client      
+  become: yes
+  roles:
+    - testingclient
+
+

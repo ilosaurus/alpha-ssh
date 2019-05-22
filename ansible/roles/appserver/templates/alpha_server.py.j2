@@ -42,7 +42,7 @@ def update_database(node_name,attempt_count):
     db_user = '{{ mysql_username  }}'
     db_password = '{{ mysql_password  }}'
     db_name = 'ssh_access_reports'
-    db_host = '{{ mysql_host  }}'
+    db_host = 'localhost'
     db_table = 'report'
 
     print "Connecting to mysql."

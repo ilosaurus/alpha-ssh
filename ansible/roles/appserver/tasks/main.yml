@@ -1,15 +1,12 @@
 ---
-# tasks file for app
+# tasks file for appserver
 - name: Install required software in server node
   apt:
     state: present
-    name: ['apache2', 'php7.2', 'php7.2-mysql', 'libapache2-mod-php7.2', 'mysql-server']
+    name: ['python-mysqldb','apache2', 'php7.0', 'php7.0-mysql', 'libapache2-mod-php7.0', 'mysql-server']
 
-- name: Install php extensions
-  apt: 
-    state: present
-    become: yes
-    name: ['php7.2-gd','php7.2-mysql']
+- name: install dependency
+  command: "pip install mysql-connector-python mysql-python"
 
 - name: Create script directory
   file:
@@ -22,10 +19,10 @@
     dest: "{{ item.dest }}"
     mode: 0777
   with_items:
-    - { src: 'roles/appserver/files/alpha_server.py.j2', dest: '/opt/alpha/alpha_server.py' }
-    - { src: 'roles/appserver/files/alpha_client.py.j2', dest: '/opt/alpha/alpha_client.py' }
-    - { src: 'roles/appserver/files/alpha_report.py.j2', dest: '/opt/alpha/alpha_report.py' }
-
+    - { src: 'roles/appserver/templates/alpha_server.py.j2', dest: '/opt/alpha/alpha_server.py' }
+    - { src: 'roles/appserver/templates/alpha_client.py.j2', dest: '/opt/alpha/alpha_client.py' }
+    - { src: 'roles/appserver/templates/alpha_report.py.j2', dest: '/opt/alpha/alpha_report.py' }
+    - { src: 'roles/appserver/templates/index.php.j2', dest: '/var/www/html/index.php' }
 - name: deploy systemd service in server node
   template:
     src: "{{ item.src }}"
@@ -35,7 +32,9 @@
     - { src: 'roles/appserver/files/alpha_server.service', dest: '/etc/systemd/system/alpha_server.service' }
     - { src: 'roles/appserver/files/alpha_client.service', dest: '/etc/systemd/system/alpha_client.service' }
     - { src: 'roles/appserver/files/alpha_report.service', dest: '/etc/systemd/system/alpha_report.service' }
-
+    - { src: 'roles/appserver/files/alpha_server.log', dest: '/var/log/alpha_server.log' }
+    - { src: 'roles/appserver/files/alpha_client.log', dest: '/var/log/alpha_client.log' }
+    - { src: 'roles/appserver/files/php.ini', dest: '/etc/php/7.0/apache2/php.ini' }
 - name: systemd to reread configs
   systemd:
     daemon_reload: yes
@@ -49,3 +48,7 @@
     - 'alpha_server'
     - 'alpha_client'
 
+- name: restart service apache2
+  systemd:
+    state: restarted
+    name: apache2

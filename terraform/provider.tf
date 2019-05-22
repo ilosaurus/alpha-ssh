@@ -1,0 +1,8 @@
+
+provider "openstack" {
+  user_name   = "CHANGE ME WITH YOUR OPENSTACK USERNAME"
+  tenant_name = "CHANGE ME WITH YOUR PROJECT NAME"
+  password    = "CHANGE ME WITH YOUR OPENSTACK PASSWORD"
+  auth_url    = "CHANGE ME WITH YOUR OPENSTACK KEYSTONE ENDPOINT"
+}
+
