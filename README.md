@@ -21,7 +21,17 @@ SSH Access reporting tool is written on python.   The deployment/configuration i
   - php7.0-mysql
   - libapache2-mod-php7.0
 
-## Setup
+## Provisioning Instance on Openstack
+if you using openstack as enviroment deployment. Automated deployment instance with terraform.
+```bash
+cd terraform
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
+
+## Setup 
 - The repo has an Ansible inventory file which is located in **ansible/hosts** add the client and server IP/hostname there.  
 - Update alpha_server.py, alpha_client.py and alpha_report.py with server's IP/hostname. 
 
